@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.contractlib'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    /* I found this to be the easiest way to experiment with changes to the main contractlib project (parser and AST),
+     * which then can be pushed via the task publishToMavenLocal.
+     */
+    mavenLocal()
+    mavenCentral()
+
+    // repo of jmltoolkit
+    maven {
+        url = uri('https://s01.oss.sonatype.org/content/repositories/snapshots')
+    }
+}
+
+dependencies {
+    // not in public repositories at the moment! Use mavenLocal!
+    implementation 'org.contractlib:contractlib:0.1-SNAPSHOT'
+
+    implementation 'io.github.jmltoolkit:jmlparser-symbol-solver-core:3.25.10-b5-SNAPSHOT'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
